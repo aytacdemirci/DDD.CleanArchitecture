@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Application.Common.Interfaces;
 using Application.Tasks.Commands.CreateTask;
 using Application.Tasks.Commands.DeleteTask;
 using Application.Tasks.Commands.UpdateTask;
@@ -10,9 +11,17 @@ namespace Web.Controllers
 {
     public class TaskController : ApiController
     {
+        private readonly ICurrentUserService _sharedIdentityService;
+
+        public TaskController(ICurrentUserService sharedIdentityService)
+        {
+            _sharedIdentityService = sharedIdentityService;
+        }
+
         [HttpGet]
         public async Task<ActionResult<TasksVm>> Get([FromQuery] GetTasksQuery query)
         {
+           var user = _sharedIdentityService.GetUserId;
            return await Mediator.Send(query);
         }
 

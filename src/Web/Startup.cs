@@ -4,13 +4,17 @@ using Application.Common.Exceptions;
 using Application.Common.Interfaces;
 using FluentValidation.AspNetCore;
 using Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
 using Web.Common;
 using Web.Services;
 
@@ -30,6 +34,15 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(Options =>
+            {
+                Options.Authority = Configuration["IdentityServerURL"];
+                Options.Audience = "resource_ddd_api";
+                Options.RequireHttpsMetadata = false;
+
+            });
             services.AddDomain();
             services.AddApplication();
             services.AddInfrastructure(Configuration);
@@ -40,7 +53,9 @@ namespace Web
 
             services.AddHealthChecks();
 
-            services.AddControllers()
+            services.AddControllers(Options => {
+                Options.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+            })
                 .AddNewtonsoftJson();
 
             // Customise default API behaviour

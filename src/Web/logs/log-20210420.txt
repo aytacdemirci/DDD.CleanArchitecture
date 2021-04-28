@@ -1,0 +1,1 @@
+2021-04-20 09:04:38.159 +03:00 [INF] [Application.Tasks.Queries.GetTasks.GetTasksQuery] Request: "GetTasksQuery", UserId: "(null)", GetTasksQuery { Name: "dasd" }

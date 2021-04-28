@@ -1,0 +1,5 @@
+2021-04-26 15:34:55.775 +03:00 [WRN] [Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware] Failed to determine the https port for redirect.
+2021-04-26 15:36:19.586 +03:00 [INF] [Application.Tasks.Queries.GetTasks.GetTasksQuery] Request: "GetTasksQuery", UserId: "(null)", GetTasksQuery { Name: "dasd" }
+2021-04-26 15:36:31.055 +03:00 [WRN] [Application.Tasks.Queries.GetTasks.GetTasksQuery] Long Running Request detected: "GetTasksQuery" (11410 milliseconds), UserId: "(null)", Request: GetTasksQuery { Name: "dasd" }
+2021-04-26 15:39:05.673 +03:00 [INF] [Application.Tasks.Queries.GetTasks.GetTasksQuery] Request: "GetTasksQuery", UserId: "(null)", GetTasksQuery { Name: "dasd" }
+2021-04-26 17:05:39.516 +03:00 [WRN] [Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware] Failed to determine the https port for redirect.
