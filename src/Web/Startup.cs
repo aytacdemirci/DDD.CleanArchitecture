@@ -34,6 +34,7 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /*
             var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(Options =>
@@ -43,6 +44,7 @@ namespace Web
                 Options.RequireHttpsMetadata = false;
 
             });
+            */
             services.AddDomain();
             services.AddApplication();
             services.AddInfrastructure(Configuration);
@@ -54,7 +56,7 @@ namespace Web
             services.AddHealthChecks();
 
             services.AddControllers(Options => {
-                Options.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+                //Options.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
             })
                 .AddNewtonsoftJson();
 
@@ -92,8 +94,8 @@ namespace Web
 
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+           // app.UseAuthentication();
+           // app.UseAuthorization();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();

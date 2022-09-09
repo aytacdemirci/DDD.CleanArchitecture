@@ -21,7 +21,7 @@ namespace Web.Controllers
         [HttpGet]
         public async Task<ActionResult<TasksVm>> Get([FromQuery] GetTasksQuery query)
         {
-           var user = _sharedIdentityService.GetUserId;
+          // var user = _sharedIdentityService.GetUserId;
            return await Mediator.Send(query);
         }
 
